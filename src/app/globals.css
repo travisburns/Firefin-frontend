@@ -580,10 +580,9 @@ a {
   aspect-ratio: 5 / 4;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background:
-    radial-gradient(120% 90% at 70% 20%, rgba(240, 90, 31, 0.35), transparent 55%),
-    radial-gradient(120% 120% at 30% 90%, rgba(201, 47, 36, 0.3), transparent 55%),
-    linear-gradient(135deg, #241b16, #14100e);
+  background-color: #14100e;
+  background-size: cover;
+  background-position: center;
 }
 
 .band {
@@ -721,19 +720,9 @@ a {
   aspect-ratio: 16 / 9;
   border-radius: 10px;
   border: 1px solid var(--border);
-}
-
-.promo-visual.box {
-  background:
-    radial-gradient(100% 100% at 50% 0%, rgba(240, 90, 31, 0.28), transparent 60%),
-    linear-gradient(135deg, #2a201a, #14100e);
-}
-
-.promo-visual.sauces {
-  background:
-    radial-gradient(80% 100% at 20% 100%, rgba(80, 60, 180, 0.35), transparent 60%),
-    radial-gradient(80% 100% at 80% 100%, rgba(201, 47, 36, 0.3), transparent 60%),
-    linear-gradient(135deg, #201a1a, #14100e);
+  background-color: #14100e;
+  background-size: cover;
+  background-position: center;
 }
 
 /* Latest drop */

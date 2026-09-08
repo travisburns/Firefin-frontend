@@ -38,7 +38,12 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="home-hero-visual" aria-hidden />
+        <div
+          className="home-hero-visual"
+          style={{ backgroundImage: "url('/concept/hero-firefin.jpg')" }}
+          role="img"
+          aria-label="The Firefin — spicy salmon meal, cooked from frozen"
+        />
       </section>
 
       {/* Featured meals */}
@@ -72,7 +77,12 @@ export default async function HomePage() {
             Build a box
           </Link>
         </div>
-        <div className="promo-visual box" aria-hidden />
+        <div
+          className="promo-visual box"
+          style={{ backgroundImage: "url('/concept/bundle-box.jpg')" }}
+          role="img"
+          aria-label="Firefin freezer bundle box"
+        />
       </section>
 
       {/* Sauces band */}
@@ -84,7 +94,12 @@ export default async function HomePage() {
             Shop sauces
           </Link>
         </div>
-        <div className="promo-visual sauces" aria-hidden />
+        <div
+          className="promo-visual sauces"
+          style={{ backgroundImage: "url('/concept/sauces.jpg')" }}
+          role="img"
+          aria-label="Firefin sauces — Blue Flame, Green Fire, Black Ember"
+        />
       </section>
 
       {/* Latest drop */}
