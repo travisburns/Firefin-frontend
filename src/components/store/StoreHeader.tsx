@@ -14,6 +14,8 @@ export function StoreHeader() {
         <nav className="store-nav">
           <Link href="/shop">Shop</Link>
           <Link href="/build-your-freezer">Build Your Freezer</Link>
+          <Link href="/sauces">Sauces</Link>
+          <Link href="/fire-drops">Fire Drops</Link>
         </nav>
         <Link href="/cart" className="cart-link">
           Cart{count > 0 ? <span className="cart-count">{count}</span> : null}
