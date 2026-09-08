@@ -1,5 +1,6 @@
 import { CartProvider } from "@/lib/cart";
 import { StoreHeader } from "@/components/store/StoreHeader";
+import { AnnouncementBar } from "@/components/store/AnnouncementBar";
 
 export default function StoreLayout({
   children
@@ -8,6 +9,7 @@ export default function StoreLayout({
 }) {
   return (
     <CartProvider>
+      <AnnouncementBar />
       <StoreHeader />
       <main className="container">{children}</main>
       <footer className="site-footer">
