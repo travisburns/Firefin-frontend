@@ -528,3 +528,26 @@ button.btn.ghost {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
+
+/* ---------- Checkout ---------- */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.checkout-grid .freezer-summary {
+  margin-top: 0;
+}
+
+@media (max-width: 720px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.confirm-banner {
+  border-left: 3px solid var(--ember);
+  margin-bottom: 8px;
+}

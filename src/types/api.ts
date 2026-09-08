@@ -110,3 +110,53 @@ export interface CreateBatch {
   summary: string | null;
   notes: CreateBatchNote[];
 }
+
+export type OrderStatus = "Pending" | "Paid" | "Fulfilled" | "Cancelled";
+
+export interface OrderItem {
+  id: number;
+  productId: number | null;
+  title: string;
+  subtitle: string | null;
+  unitPrice: number;
+  quantity: number;
+  lineTotal: number;
+}
+
+export interface Order {
+  id: number;
+  orderNumber: string;
+  status: OrderStatus;
+  customerName: string;
+  customerEmail: string;
+  shippingLine1: string;
+  shippingLine2: string | null;
+  shippingCity: string;
+  shippingRegion: string | null;
+  shippingPostalCode: string;
+  shippingCountry: string;
+  subtotal: number;
+  createdAt: string;
+  paidAt: string | null;
+  items: OrderItem[];
+}
+
+export interface CreateOrderItem {
+  productSlug: string | null;
+  title: string;
+  subtitle: string | null;
+  unitPrice: number;
+  quantity: number;
+}
+
+export interface CreateOrder {
+  customerName: string;
+  customerEmail: string;
+  shippingLine1: string;
+  shippingLine2: string | null;
+  shippingCity: string;
+  shippingRegion: string | null;
+  shippingPostalCode: string;
+  shippingCountry: string;
+  items: CreateOrderItem[];
+}

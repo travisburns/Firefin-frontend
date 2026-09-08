@@ -53,12 +53,12 @@ export function CartView() {
           <strong>${subtotal.toFixed(2)}</strong>
         </div>
         <p className="fineprint">
-          Shipping, taxes, and checkout come with the payments integration — the
-          next storefront milestone.
+          Shipping and taxes are calculated at the next step. Payment is simulated
+          until the real gateway is wired up.
         </p>
-        <button className="btn" disabled title="Checkout is not wired up yet">
-          Checkout (coming soon)
-        </button>
+        <Link href="/checkout" className="btn" style={{ textAlign: "center" }}>
+          Checkout
+        </Link>
         <button className="btn ghost" onClick={clear}>
           Clear cart
         </button>
