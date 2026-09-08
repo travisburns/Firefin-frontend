@@ -75,6 +75,26 @@ export interface Batch {
   notes: BatchNote[];
 }
 
+export interface UpdateProduct {
+  name: string;
+  status: ProductStatus;
+  heatLevel: number | null;
+  description: string | null;
+  targetPrice: number | null;
+}
+
+export interface CreateRecipeIngredient {
+  name: string;
+  grams: number;
+  notes: string | null;
+  sortOrder: number;
+}
+
+export interface CreateRecipe {
+  notes: string | null;
+  ingredients: CreateRecipeIngredient[];
+}
+
 export interface CreateBatchNote {
   category: NoteCategory;
   whatWorked: string | null;

@@ -3,8 +3,11 @@ import { notFound } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
 import { AddBatchForm } from "@/components/AddBatchForm";
 import { BatchList } from "@/components/BatchList";
+import { EditProductForm } from "@/components/EditProductForm";
 import { HeatMeter } from "@/components/HeatMeter";
 import { IngredientTable } from "@/components/IngredientTable";
+import { NewVersionForm } from "@/components/NewVersionForm";
+import { ProductStatusActions } from "@/components/ProductStatusActions";
 import { StatusBadge, TypeBadge } from "@/components/StatusBadge";
 
 export const dynamic = "force-dynamic";
@@ -42,6 +45,11 @@ export default async function ProductDetailPage({
         )}
       </div>
 
+      <div className="meta-row" style={{ marginTop: 16 }}>
+        <ProductStatusActions product={product} hasCurrentRecipe={current != null} />
+        <EditProductForm product={product} />
+      </div>
+
       <div className="section-title">
         Current formula {current ? `— v${current.version}` : ""}
       </div>
@@ -53,6 +61,14 @@ export default async function ProductDetailPage({
       ) : (
         <p className="empty">No recipe versions yet.</p>
       )}
+
+      <div style={{ marginTop: 12 }}>
+        <NewVersionForm
+          productId={product.id}
+          current={current}
+          nextVersion={(recipes[0]?.version ?? 0) + 1}
+        />
+      </div>
 
       {recipes.length > 1 && (
         <>

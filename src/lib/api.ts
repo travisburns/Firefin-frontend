@@ -1,4 +1,11 @@
-import type { Batch, CreateBatch, Product, Recipe } from "@/types/api";
+import type {
+  Batch,
+  CreateBatch,
+  CreateRecipe,
+  Product,
+  Recipe,
+  UpdateProduct
+} from "@/types/api";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:5080";
@@ -30,8 +37,18 @@ export const api = {
   getProducts: () => request<Product[]>("/api/products"),
   getProductBySlug: (slug: string) =>
     request<Product>(`/api/products/slug/${encodeURIComponent(slug)}`),
+  updateProduct: (id: number, body: UpdateProduct) =>
+    request<Product>(`/api/products/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(body)
+    }),
   getRecipesForProduct: (productId: number) =>
     request<Recipe[]>(`/api/products/${productId}/recipes`),
+  createRecipe: (productId: number, body: CreateRecipe) =>
+    request<Recipe>(`/api/products/${productId}/recipes`, {
+      method: "POST",
+      body: JSON.stringify(body)
+    }),
   getBatchesForRecipe: (recipeId: number) =>
     request<Batch[]>(`/api/recipes/${recipeId}/batches`),
   createBatch: (recipeId: number, body: CreateBatch) =>
