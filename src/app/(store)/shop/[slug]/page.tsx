@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
-import { isSellable } from "@/lib/sellable";
+import { isSellable, sellable } from "@/lib/sellable";
 import { HeatMeter } from "@/components/HeatMeter";
-import { TypeBadge } from "@/components/StatusBadge";
-import { AddToCartButton } from "@/components/store/AddToCartButton";
+import { ProductPurchasePanel } from "@/components/store/ProductPurchasePanel";
+import { ProductTabs } from "@/components/store/ProductTabs";
+import { StoreFeatureRow } from "@/components/store/StoreFeatureRow";
+import type { Product } from "@/types/api";
 
 export const dynamic = "force-dynamic";
 
@@ -18,34 +20,69 @@ export default async function StoreProductPage({
     throw err;
   });
 
-  // Don't expose products that aren't ready to sell.
   if (!isSellable(product)) notFound();
+
+  // "Perfect with" sauces (exclude the current product).
+  let sauces: Product[] = [];
+  try {
+    sauces = sellable(await api.getProducts())
+      .filter((p) => p.type === "Sauce" && p.id !== product.id)
+      .slice(0, 3);
+  } catch {
+    sauces = [];
+  }
 
   return (
     <>
-      <Link href="/shop" className="back-link">
-        ← Shop
-      </Link>
+      <nav className="breadcrumb">
+        <Link href="/">Home</Link> <span>/</span>{" "}
+        <Link href="/shop">Shop</Link> <span>/</span> <span>{product.name}</span>
+      </nav>
 
-      <div className="product-detail">
-        <div className="product-hero" aria-hidden />
-        <div>
-          <h1 className="page-title" style={{ marginTop: 0 }}>
-            {product.name}
-          </h1>
+      <div className="pdp">
+        <div
+          className="pdp-media"
+          style={{ backgroundImage: "url('/concept/product-hero.jpg')" }}
+          role="img"
+          aria-label={product.name}
+        />
+        <div className="pdp-info">
+          <h1 className="pdp-title">{product.name}</h1>
           <div className="meta-row">
-            <TypeBadge type={product.type} />
-            <HeatMeter level={product.heatLevel} />
+            <span className="badge">{product.type === "FireDrop" ? "Fire Drop" : product.type}</span>
+            <span className="pdp-spec">
+              Heat <HeatMeter level={product.heatLevel} />
+            </span>
+            <span className="badge">❄️ Cook from frozen</span>
           </div>
-          {product.description && <p style={{ marginTop: 16 }}>{product.description}</p>}
-          {product.targetPrice != null && (
-            <p className="price price-lg">${product.targetPrice.toFixed(2)}</p>
-          )}
-          <div style={{ marginTop: 16 }}>
-            <AddToCartButton product={product} />
-          </div>
+          <ProductPurchasePanel product={product} />
+          <Link href="/build-your-freezer" className="pdp-bundle">
+            <strong>Build Your Freezer & save more</strong>
+            <span>Mix &amp; match any meals and sauces →</span>
+          </Link>
         </div>
       </div>
+
+      <ProductTabs description={product.description} />
+
+      {sauces.length > 0 && (
+        <section className="band">
+          <h2 className="band-title">Perfect with Firefin sauces</h2>
+          <div className="card-grid tiles">
+            {sauces.map((s) => (
+              <Link key={s.id} href={`/shop/${s.slug}`} className="card product-tile">
+                <div className="product-thumb" aria-hidden />
+                <h3 style={{ margin: 0, fontSize: 16 }}>{s.name}</h3>
+                {s.targetPrice != null && (
+                  <span className="price">${s.targetPrice.toFixed(2)}</span>
+                )}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <StoreFeatureRow />
     </>
   );
 }
